@@ -1406,12 +1406,11 @@ const ABA_MAP = {
   'venda margem mg':   'margem_mg',
 };
 
-// Dados brutos completos (GO + MG) — carregados uma única vez da planilha
-let RAW_ALL = {};
 // Sessão do usuário logado
 let SESSION = { regiao: null, usuario: null, lojas: null }; // lojas: null = acesso a todas as lojas da região
-// Última data de venda encontrada nas abas VENDA/VENDA MARGEM de cada região
+// Última data de venda e contagem de linhas por região (tela inicial rápida)
 let ULTIMA_ATUALIZACAO = { go: null, mg: null };
+let CONTAGEM_REGIAO = { go: 0, mg: 0 };
 
 // Converte {headers, rows} (formato devolvido pelo Apps Script) em array de objetos
 function arrayToObjects(headers, rows) {
@@ -1428,26 +1427,15 @@ function arrayToObjects(headers, rows) {
     .filter(r => Object.values(r).some(v => v !== ''));
 }
 
-// Maior data de venda encontrada entre as abas VENDA e VENDA MARGEM de uma região
-function calcularUltimaAtualizacao(venda, margem) {
-  let maior = null;
-  const checar = (rows, ...camposData) => {
-    rows.forEach(r => {
-      const raw = getColRaw(r, ...camposData);
-      const d = parseDate(raw);
-      if (d && (!maior || d > maior)) maior = d;
-    });
-  };
-  checar(venda, 'Venda', 'Nota Data', 'Data', 'DtVenda', 'Data Venda');
-  checar(margem, 'DtVenda', 'Data', 'Data Venda');
-  return maior;
-}
-
 function fmtDataCurta(d) {
   if (!d) return '—';
   return String(d.getDate()).padStart(2,'0') + '/' + String(d.getMonth()+1).padStart(2,'0') + '/' + d.getFullYear();
 }
 
+// ═══════════════════════════════════════════════════════
+// ETAPA 1 (rápida): busca só a data da última venda e a contagem de linhas
+// de cada região, pra abrir a tela de seleção sem baixar a base inteira.
+// ═══════════════════════════════════════════════════════
 async function loadFromCloud() {
   hideFileError();
   document.getElementById('btn-reconectar').style.display = 'none';
@@ -1461,27 +1449,18 @@ async function loadFromCloud() {
   showLoading('Conectando à planilha...');
 
   try {
-    setLoading('Baixando dados da nuvem...');
-    const resp = await fetch(GOOGLE_SCRIPT_URL + '?action=dados');
+    const resp = await fetch(GOOGLE_SCRIPT_URL + '?action=meta');
     if (!resp.ok) throw new Error('Falha de conexão (HTTP ' + resp.status + ')');
     const json = await resp.json();
     if (!json.ok) throw new Error(json.erro || 'Erro ao buscar dados da planilha.');
 
-    RAW_ALL = {
-      clientes:   arrayToObjects(json.clientes.headers,   json.clientes.rows),
-      vendedores: arrayToObjects(json.vendedores.headers, json.vendedores.rows),
-      acessos:    [], // nunca vem da nuvem — login é validado no próprio Apps Script
-      venda_go:   arrayToObjects(json.venda_go.headers,   json.venda_go.rows),
-      margem_go:  arrayToObjects(json.margem_go.headers,  json.margem_go.rows),
-      venda_mg:   arrayToObjects(json.venda_mg.headers,   json.venda_mg.rows),
-      margem_mg:  arrayToObjects(json.margem_mg.headers,  json.margem_mg.rows),
-    };
+    ULTIMA_ATUALIZACAO.go = json.ultima.go ? new Date(json.ultima.go) : null;
+    ULTIMA_ATUALIZACAO.mg = json.ultima.mg ? new Date(json.ultima.mg) : null;
+    CONTAGEM_REGIAO.go = json.contagem.go || 0;
+    CONTAGEM_REGIAO.mg = json.contagem.mg || 0;
 
-    ULTIMA_ATUALIZACAO.go = calcularUltimaAtualizacao(RAW_ALL.venda_go, RAW_ALL.margem_go);
-    ULTIMA_ATUALIZACAO.mg = calcularUltimaAtualizacao(RAW_ALL.venda_mg, RAW_ALL.margem_mg);
-
-    console.log('[NUVEM] Base carregada — GO:', RAW_ALL.venda_go.length, 'linhas de venda (até', fmtDataCurta(ULTIMA_ATUALIZACAO.go), ')',
-      '| MG:', RAW_ALL.venda_mg.length, 'linhas de venda (até', fmtDataCurta(ULTIMA_ATUALIZACAO.mg), ')');
+    console.log('[NUVEM] Meta carregada — GO:', CONTAGEM_REGIAO.go, 'linhas (até', fmtDataCurta(ULTIMA_ATUALIZACAO.go), ')',
+      '| MG:', CONTAGEM_REGIAO.mg, 'linhas (até', fmtDataCurta(ULTIMA_ATUALIZACAO.mg), ')');
 
     hideLoading();
     document.getElementById('config-panel').style.display = 'none';
@@ -1509,7 +1488,7 @@ function atualizarDatasRegiao() {
 // REGIÃO — TELA 1
 // ═══════════════════════════════════════════════════════
 function selecionarRegiao(regiao) {
-  const temDados = regiao === 'go' ? RAW_ALL.venda_go.length > 0 : RAW_ALL.venda_mg.length > 0;
+  const temDados = regiao === 'go' ? CONTAGEM_REGIAO.go > 0 : CONTAGEM_REGIAO.mg > 0;
   if (!temDados) {
     const el = document.getElementById('regiao-error');
     el.textContent = 'Não há dados de venda para a região ' + regiao.toUpperCase() + ' nesta base.';
@@ -1557,9 +1536,9 @@ async function doLogin() {
       + '&regiao=' + encodeURIComponent(SESSION.regiao);
     const resp = await fetch(url);
     const json = await resp.json();
-    if (btn) { btn.disabled = false; btn.textContent = 'Entrar'; }
 
     if (!json.ok) {
+      if (btn) { btn.disabled = false; btn.textContent = 'Entrar'; }
       errEl.textContent = json.erro || 'Usuário, senha ou região incorretos.';
       errEl.classList.remove('hidden');
       return;
@@ -1573,7 +1552,36 @@ async function doLogin() {
     return;
   }
 
-  entrarNoSistema();
+  // ETAPA 2 (só agora): busca os dados completos, mas só da região escolhida
+  document.getElementById('login-panel').classList.add('hidden');
+  document.getElementById('regiao-panel').classList.add('hidden');
+  showLoading('Baixando dados da região ' + SESSION.regiao.toUpperCase() + '...');
+
+  try {
+    const url = GOOGLE_SCRIPT_URL + '?action=dados&regiao=' + encodeURIComponent(SESSION.regiao.toUpperCase());
+    const resp = await fetch(url);
+    if (!resp.ok) throw new Error('Falha de conexão (HTTP ' + resp.status + ')');
+    const json = await resp.json();
+    if (!json.ok) throw new Error(json.erro || 'Erro ao buscar dados da região.');
+
+    RAW = {
+      clientes:   arrayToObjects(json.clientes.headers,   json.clientes.rows),
+      vendedores: arrayToObjects(json.vendedores.headers, json.vendedores.rows),
+      venda:      arrayToObjects(json.venda.headers,      json.venda.rows),
+      margem:     arrayToObjects(json.margem.headers,     json.margem.rows),
+    };
+
+    setLoading('Construindo análises...');
+    entrarNoSistema();
+
+  } catch (err) {
+    console.error('Erro ao carregar dados da região:', err);
+    if (btn) { btn.disabled = false; btn.textContent = 'Entrar'; }
+    hideLoading();
+    document.getElementById('login-panel').classList.remove('hidden');
+    errEl.textContent = 'Erro ao carregar os dados: ' + err.message;
+    errEl.classList.remove('hidden');
+  }
 }
 
 function trocarUsuario() {
@@ -1589,20 +1597,10 @@ function trocarUsuario() {
 }
 
 // ═══════════════════════════════════════════════════════
-// ENTRAR NO SISTEMA — monta RAW da região, aplica escopo de loja e renderiza
+// ENTRAR NO SISTEMA — monta o JOINED a partir do RAW já filtrado pela região,
+// aplica escopo de loja e renderiza
 // ═══════════════════════════════════════════════════════
 function entrarNoSistema() {
-  document.getElementById('login-panel').classList.add('hidden');
-  document.getElementById('regiao-panel').classList.add('hidden');
-  showLoading('Construindo análises...');
-
-  RAW = {
-    clientes:   RAW_ALL.clientes,
-    vendedores: RAW_ALL.vendedores,
-    venda:      SESSION.regiao === 'go' ? RAW_ALL.venda_go  : RAW_ALL.venda_mg,
-    margem:     SESSION.regiao === 'go' ? RAW_ALL.margem_go : RAW_ALL.margem_mg,
-  };
-
   buildJoined();
 
   // Escopo por loja (carteira do gestor), quando aplicável
