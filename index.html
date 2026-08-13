@@ -1449,6 +1449,45 @@ function fmtDataCurta(d) {
 }
 
 // ═══════════════════════════════════════════════════════
+// fetch com timeout + 1 tentativa automática — Apps Script às vezes
+// demora pra "acordar" (cold start) ou falha de forma passageira quando
+// vários acessos batem ao mesmo tempo. Isso evita que isso vire um erro
+// visível na primeira tentativa.
+// ═══════════════════════════════════════════════════════
+async function fetchComRetry(url, options, timeoutMs) {
+  timeoutMs = timeoutMs || 25000;
+  const tentar = async () => {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+      const resp = await fetch(url, { ...options, signal: controller.signal });
+      clearTimeout(timer);
+      return resp;
+    } catch (err) {
+      clearTimeout(timer);
+      throw err;
+    }
+  };
+  try {
+    return await tentar();
+  } catch (err) {
+    // uma segunda tentativa, sem re-lançar erro na primeira falha
+    return await tentar();
+  }
+}
+
+// Atualiza a mensagem da tela de carregamento com um aviso extra se
+// estiver demorando mais que o normal (sem trocar o texto principal)
+function iniciarAvisoDemora() {
+  return setTimeout(() => {
+    const el = document.getElementById('loading-msg');
+    if (el && !el.textContent.includes('demorando')) {
+      el.textContent += ' Isso está demorando mais que o normal — aguarde, ainda estamos tentando.';
+    }
+  }, 8000);
+}
+
+// ═══════════════════════════════════════════════════════
 // ETAPA 1 (rápida): busca só a data da última venda e a contagem de linhas
 // de cada região, pra abrir a tela de seleção sem baixar a base inteira.
 // ═══════════════════════════════════════════════════════
@@ -1463,9 +1502,11 @@ async function loadFromCloud() {
 
   document.getElementById('config-panel').style.display = '';
   showLoading('Conectando à planilha...');
+  const avisoTimer = iniciarAvisoDemora();
 
   try {
-    const resp = await fetch(GOOGLE_SCRIPT_URL + '?action=meta');
+    const resp = await fetchComRetry(GOOGLE_SCRIPT_URL + '?action=meta');
+    clearTimeout(avisoTimer);
     if (!resp.ok) throw new Error('Falha de conexão (HTTP ' + resp.status + ')');
     const json = await resp.json();
     if (!json.ok) throw new Error(json.erro || 'Erro ao buscar dados da planilha.');
@@ -1488,9 +1529,11 @@ async function loadFromCloud() {
     atualizarDatasRegiao();
 
   } catch (err) {
+    clearTimeout(avisoTimer);
     console.error('Erro ao carregar da nuvem:', err);
     document.getElementById('config-panel').style.display = '';
-    showFileError('Erro ao carregar da nuvem: ' + err.message);
+    const msg = err.name === 'AbortError' ? 'A planilha demorou demais para responder. Tente novamente.' : err.message;
+    showFileError('Erro ao carregar da nuvem: ' + msg);
     document.getElementById('btn-reconectar').style.display = '';
     hideLoading();
   }
@@ -1598,10 +1641,10 @@ async function enviarTrocarSenha() {
   btn.disabled = true; btn.textContent = 'Alterando...';
 
   try {
-    const resp = await fetch(GOOGLE_SCRIPT_URL, {
+    const resp = await fetchComRetry(GOOGLE_SCRIPT_URL, {
       method: 'POST',
       body: JSON.stringify({ action: 'trocarSenha', usuario, senhaAtual: atual, novaSenha: nova, regiao: SESSION.regiao.toUpperCase() }),
-    });
+    }, 20000);
     const json = await resp.json();
     btn.disabled = false; btn.textContent = 'Trocar senha';
 
@@ -1614,7 +1657,7 @@ async function enviarTrocarSenha() {
     document.getElementById('login-usuario').value = usuario;
   } catch (err) {
     btn.disabled = false; btn.textContent = 'Trocar senha';
-    errEl.textContent = 'Erro ao conectar com a planilha: ' + err.message;
+    errEl.textContent = err.name === 'AbortError' ? 'A planilha demorou demais para responder. Tente novamente.' : ('Erro ao conectar com a planilha: ' + err.message);
     errEl.classList.remove('hidden');
   }
 }
@@ -1642,7 +1685,7 @@ async function doLogin() {
       + '&usuario=' + encodeURIComponent(usuario)
       + '&senha=' + encodeURIComponent(senha)
       + '&regiao=' + encodeURIComponent(SESSION.regiao);
-    const resp = await fetch(url);
+    const resp = await fetchComRetry(url, undefined, 20000);
     const json = await resp.json();
 
     if (!json.ok) {
@@ -1655,7 +1698,7 @@ async function doLogin() {
     SESSION.lojas = json.lojas ? json.lojas.map(s => norm(s)) : null;
   } catch (err) {
     if (btn) { btn.disabled = false; btn.textContent = 'Entrar'; }
-    errEl.textContent = 'Erro ao conectar com a planilha: ' + err.message;
+    errEl.textContent = err.name === 'AbortError' ? 'A planilha demorou demais para responder. Tente novamente.' : ('Erro ao conectar com a planilha: ' + err.message);
     errEl.classList.remove('hidden');
     return;
   }
@@ -1664,10 +1707,12 @@ async function doLogin() {
   document.getElementById('login-panel').classList.add('hidden');
   document.getElementById('regiao-panel').classList.add('hidden');
   showLoading('Baixando dados da região ' + SESSION.regiao.toUpperCase() + '...');
+  const avisoTimer2 = iniciarAvisoDemora();
 
   try {
     const url = GOOGLE_SCRIPT_URL + '?action=dados&regiao=' + encodeURIComponent(SESSION.regiao.toUpperCase());
-    const resp = await fetch(url);
+    const resp = await fetchComRetry(url);
+    clearTimeout(avisoTimer2);
     if (!resp.ok) throw new Error('Falha de conexão (HTTP ' + resp.status + ')');
     const json = await resp.json();
     if (!json.ok) throw new Error(json.erro || 'Erro ao buscar dados da região.');
@@ -1683,11 +1728,13 @@ async function doLogin() {
     entrarNoSistema();
 
   } catch (err) {
+    clearTimeout(avisoTimer2);
     console.error('Erro ao carregar dados da região:', err);
     if (btn) { btn.disabled = false; btn.textContent = 'Entrar'; }
     hideLoading();
     document.getElementById('login-panel').classList.remove('hidden');
-    errEl.textContent = 'Erro ao carregar os dados: ' + err.message;
+    const msg = err.name === 'AbortError' ? 'A planilha demorou demais para responder. Tente novamente.' : err.message;
+    errEl.textContent = 'Erro ao carregar os dados: ' + msg;
     errEl.classList.remove('hidden');
   }
 }
