@@ -4,90 +4,100 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Carteiras Atacado de Peças Jorlan — GO/MG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <!-- Fontes do sistema — sem dependência externa -->
 
 <style>
 /* ═══════════════════════════════════════════════
-   DESIGN SYSTEM — Executivo Clean Light
+   DESIGN SYSTEM — Jorlan Premium
    ═══════════════════════════════════════════════ */
 :root {
-  --bg:       #F5F6FA;
+  --bg:       #EEF0F6;
   --surface:  #FFFFFF;
-  --surface2: #F8F9FC;
-  --border:   #E8EBF2;
-  --border2:  #D4D9E8;
-  --accent:   #2563EB;
-  --accent-l: #EFF4FF;
-  --accent2:  #7C3AED;
-  --green:    #059669;
-  --green-l:  #ECFDF5;
-  --amber:    #D97706;
-  --amber-l:  #FFFBEB;
-  --red:      #DC2626;
-  --red-l:    #FEF2F2;
-  --purple:   #7C3AED;
-  --purple-l: #F5F3FF;
-  --text:     #0F172A;
-  --text2:    #475569;
-  --text3:    #94A3B8;
-  --radius:   12px;
-  --radius-sm:8px;
-  --shadow:   0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
-  --shadow-md:0 4px 12px rgba(0,0,0,.08), 0 2px 4px rgba(0,0,0,.04);
-  --font:     'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
-  --mono:     'Cascadia Code', 'Consolas', 'Menlo', 'Monaco', 'Courier New', monospace;
+  --surface2: #F7F8FC;
+  --border:   #E4E7F1;
+  --border2:  #CBD1E4;
+  --navy:     #0B1533;
+  --navy2:    #14213D;
+  --accent:   #3730A3;
+  --accent-l: #EEF0FD;
+  --accent2:  #6D28D9;
+  --gold:     #B7862A;
+  --gold-l:   #FBF3E3;
+  --green:    #067A56;
+  --green-l:  #E9F9F2;
+  --amber:    #B45309;
+  --amber-l:  #FEF6E7;
+  --red:      #B91C1C;
+  --red-l:    #FDEEEE;
+  --purple:   #6D28D9;
+  --purple-l: #F4F0FE;
+  --text:     #0B1220;
+  --text2:    #4B5268;
+  --text3:    #8992A9;
+  --radius:   14px;
+  --radius-sm:9px;
+  --shadow:   0 1px 2px rgba(11,21,51,.05), 0 1px 1px rgba(11,21,51,.04);
+  --shadow-md:0 12px 28px rgba(11,21,51,.10), 0 3px 8px rgba(11,21,51,.05);
+  --font:     'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  --mono:     'JetBrains Mono', 'Cascadia Code', 'Consolas', 'Menlo', 'Monaco', 'Courier New', monospace;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 14px; line-height: 1.5; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
 
 /* ── HEADER ── */
 .header {
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, var(--navy) 0%, var(--navy2) 100%);
+  border-bottom: 1px solid rgba(255,255,255,.06);
   padding: 0 32px;
   position: sticky; top: 0; z-index: 200;
   display: flex; align-items: center; justify-content: space-between;
-  height: 60px;
+  height: 62px;
+  box-shadow: 0 2px 16px rgba(11,21,51,.18);
 }
-.header-brand { display: flex; align-items: center; gap: 10px; }
+.header-brand { display: flex; align-items: center; gap: 11px; }
 .brand-icon {
-  width: 32px; height: 32px; border-radius: 8px;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  width: 34px; height: 34px; border-radius: 9px;
+  background: linear-gradient(135deg, var(--gold), #8A6216);
   display: flex; align-items: center; justify-content: center;
-  color: white; font-size: 14px; font-weight: 700;
+  color: white; font-size: 14px; font-weight: 800;
+  box-shadow: 0 2px 8px rgba(183,134,42,.35);
 }
-.brand-name { font-size: 15px; font-weight: 600; color: var(--text); letter-spacing: -.3px; }
-.brand-year { font-size: 12px; color: var(--text3); font-weight: 400; margin-left: 4px; }
+.brand-name { font-size: 15px; font-weight: 700; color: #fff; letter-spacing: -.2px; }
+.brand-year { font-size: 12px; color: rgba(255,255,255,.55); font-weight: 400; margin-left: 4px; }
 .header-right { display: flex; align-items: center; gap: 10px; }
-.last-update { font-size: 12px; color: var(--text3); font-family: var(--mono); }
+.last-update { font-size: 12px; color: rgba(255,255,255,.55); font-family: var(--mono); }
 .status-pill {
   display: flex; align-items: center; gap: 5px;
-  background: var(--green-l); color: var(--green);
+  background: rgba(6,122,86,.18); color: #4ADE9B;
   padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 500;
 }
-.status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+.status-dot { width: 6px; height: 6px; border-radius: 50%; background: #4ADE9B; animation: pulse 2s infinite; }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
 
 /* ── NAV TABS ── */
 .nav-bar {
   background: var(--surface);
   border-bottom: 1px solid var(--border);
-  padding: 0 32px;
-  display: flex; gap: 0;
+  padding: 8px 26px;
+  display: flex; gap: 4px;
 }
 .nav-tab {
-  padding: 13px 20px; font-size: 13px; font-weight: 500;
+  padding: 9px 16px; font-size: 13px; font-weight: 600;
   color: var(--text3); cursor: pointer;
-  border-bottom: 2px solid transparent;
-  transition: all .18s; white-space: nowrap;
+  border-radius: 8px;
+  transition: all .15s; white-space: nowrap;
 }
-.nav-tab:hover { color: var(--text2); }
-.nav-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.nav-tab:hover { color: var(--text2); background: var(--surface2); }
+.nav-tab.active { color: #fff; background: linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow: 0 3px 10px rgba(55,48,163,.28); }
 
 /* ── FILTER BAR ── */
+
 .filter-bar {
   background: var(--surface);
   border-bottom: 1px solid var(--border);
@@ -113,12 +123,18 @@ select:focus { border-color: var(--accent); }
 }
 .btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-l); }
 .btn-primary {
-  background: var(--accent); color: white; border: none;
+  background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; border: none;
   padding: 7px 16px; border-radius: var(--radius-sm);
   font-size: 12px; font-weight: 600; font-family: var(--font);
-  cursor: pointer; transition: opacity .15s;
+  cursor: pointer; transition: opacity .15s, box-shadow .15s;
+  box-shadow: 0 3px 10px rgba(55,48,163,.22);
 }
 .btn-primary:hover { opacity: .88; }
+.btn-header {
+  background: rgba(255,255,255,.08) !important; border: 1px solid rgba(255,255,255,.14) !important;
+  color: rgba(255,255,255,.85) !important;
+}
+.btn-header:hover { background: rgba(255,255,255,.16) !important; border-color: rgba(255,255,255,.24) !important; color: #fff !important; }
 .btn-export {
   background: var(--green-l); border: 1px solid rgba(5,150,105,.25);
   color: var(--green); padding: 6px 14px; border-radius: var(--radius-sm);
@@ -315,12 +331,12 @@ tbody tr:hover td { background: var(--accent-l); }
 
 /* ── SESSION BADGE ── */
 .session-badge {
-  font-size: 12px; font-weight: 600; color: var(--text2);
-  background: var(--surface2); border: 1px solid var(--border);
+  font-size: 12px; font-weight: 600; color: rgba(255,255,255,.85);
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
   padding: 5px 12px; border-radius: 20px; display: flex; align-items: center; gap: 6px;
 }
 .session-badge .badge-regiao {
-  background: var(--accent); color: #fff; font-size: 10px; font-weight: 700;
+  background: linear-gradient(135deg, var(--gold), #8A6216); color: #fff; font-size: 10px; font-weight: 700;
   padding: 2px 7px; border-radius: 10px; letter-spacing: .3px;
 }
 
@@ -337,7 +353,7 @@ tbody tr:hover td { background: var(--accent-l); }
 }
 .login-title { font-size: 19px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
 .login-sub { font-size: 13px; color: var(--text3); margin-bottom: 26px; line-height: 1.5; }
-.regiao-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 8px; }
+.regiao-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 8px; }
 .regiao-btn {
   background: var(--surface2); border: 1.5px solid var(--border); border-radius: var(--radius);
   padding: 22px 12px; cursor: pointer; transition: all .15s; text-align: center;
@@ -456,8 +472,8 @@ tbody tr:hover td { background: var(--accent-l); }
     <div class="status-pill" id="status-pill" style="display:none">
       <span class="status-dot"></span> Online
     </div>
-    <button class="btn" id="btn-atualizar" onclick="loadData()" style="display:none">↺ Atualizar base</button>
-    <button class="btn" id="btn-trocar-usuario" onclick="trocarUsuario()" style="display:none">⇄ Trocar usuário</button>
+    <button class="btn btn-header" id="btn-atualizar" onclick="loadData()" style="display:none">↺ Atualizar base</button>
+    <button class="btn btn-header" id="btn-trocar-usuario" onclick="trocarUsuario()" style="display:none">⇄ Trocar usuário</button>
   </div>
 </header>
 
@@ -468,8 +484,7 @@ tbody tr:hover td { background: var(--accent-l); }
   <div class="nav-tab active" onclick="showPage('overview', this)">Visão Geral</div>
   <div class="nav-tab" onclick="showPage('mesatual', this)">📅 Mês Atual</div>
   <div class="nav-tab" onclick="showPage('vendedores', this)">Vendedores</div>
-  <div class="nav-tab" onclick="showPage('clientes', this)">Clientes</div>
-  <div class="nav-tab" onclick="showPage('inativos', this)">Inativos</div>
+  <div class="nav-tab" onclick="showPage('clientes', this)">👥 Acompanhamento de Clientes</div>
   <div class="nav-tab" onclick="showPage('devolucoes', this)">Devoluções</div>
   <div class="nav-tab" onclick="showPage('insights', this)">Insights</div>
   <div class="nav-tab" onclick="showPage('campanhas', this)">🎯 Campanhas</div>
@@ -550,6 +565,12 @@ tbody tr:hover td { background: var(--accent-l); }
           <div class="regiao-desc">Belo Horizonte · Barão</div>
           <div class="regiao-desc" id="regiao-data-mg" style="margin-top:6px;font-weight:600;color:var(--accent)"></div>
         </div>
+        <div class="regiao-btn hidden" id="regiao-card-renault" onclick="selecionarRegiao('renault')">
+          <div class="regiao-emoji">🟨</div>
+          <div class="regiao-nome">RENAULT</div>
+          <div class="regiao-desc">Vendas Renault · MG</div>
+          <div class="regiao-desc" id="regiao-data-renault" style="margin-top:6px;font-weight:600;color:var(--accent)"></div>
+        </div>
       </div>
       <div id="regiao-error" class="error-banner hidden" style="margin-top:16px;text-align:left"></div>
       <div class="login-back" onclick="loadData()">↺ Recarregar dados da planilha</div>
@@ -579,7 +600,46 @@ tbody tr:hover td { background: var(--accent-l); }
         <div id="login-error" class="error-banner hidden" style="text-align:left"></div>
         <button type="submit" class="btn-primary" style="width:100%;padding:11px;font-size:13px;margin-top:4px">Entrar</button>
       </form>
-      <div class="login-back" onclick="voltarParaRegiao()">← Trocar região</div>
+      <div style="display:flex;justify-content:space-between;margin-top:16px">
+        <span class="login-back" style="margin-top:0" onclick="voltarParaRegiao()">← Trocar região</span>
+        <span class="login-back" style="margin-top:0" onclick="abrirTrocarSenha()">Trocar senha →</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     TELA — TROCAR SENHA
+     ═══════════════════════════════════════ -->
+<div id="senha-panel" class="hidden">
+  <div class="login-shell">
+    <div class="login-card">
+      <div class="regiao-atual-pill" id="senha-regiao-pill">🟦 GO</div>
+      <div class="login-icon">🔑</div>
+      <div class="login-title">Trocar senha</div>
+      <div class="login-sub">Informe seu usuário, a senha atual e a nova senha desejada.</div>
+      <form onsubmit="event.preventDefault(); enviarTrocarSenha();" autocomplete="off">
+        <div class="login-field">
+          <label>Usuário</label>
+          <input type="text" id="senha-usuario" placeholder="Ex: JOABESN.JO" autocomplete="off">
+        </div>
+        <div class="login-field">
+          <label>Senha atual</label>
+          <input type="password" id="senha-atual" placeholder="••••••••" autocomplete="off">
+        </div>
+        <div class="login-field">
+          <label>Nova senha</label>
+          <input type="password" id="senha-nova" placeholder="••••••••" autocomplete="off">
+        </div>
+        <div class="login-field">
+          <label>Confirmar nova senha</label>
+          <input type="password" id="senha-nova-confirma" placeholder="••••••••" autocomplete="off">
+        </div>
+        <div id="senha-error" class="error-banner hidden" style="text-align:left"></div>
+        <div id="senha-sucesso" class="hidden" style="background:var(--green-l);border:1px solid rgba(6,122,86,.25);color:var(--green);border-radius:var(--radius-sm);padding:10px 14px;font-size:12px;margin-bottom:14px;text-align:left">✓ Senha alterada com sucesso! Você já pode entrar com a nova senha.</div>
+        <button type="submit" class="btn-primary" id="btn-trocar-senha" style="width:100%;padding:11px;font-size:13px;margin-top:4px">Trocar senha</button>
+      </form>
+      <div class="login-back" onclick="fecharTrocarSenha()">← Voltar para o login</div>
     </div>
   </div>
 </div>
@@ -680,114 +740,59 @@ tbody tr:hover td { background: var(--accent-l); }
     </div>
   </div>
 
-  <!-- ── PAGE: CLIENTES ── -->
+  <!-- ── PAGE: ACOMPANHAMENTO DE CLIENTES (Clientes + Inativos, unificado) ── -->
   <div class="page hidden" id="page-clientes">
-    <div class="carteira-grid" id="kpi-carteira"></div>
+    <div class="kpi-grid" id="kpi-carteira"></div>
 
-    <!-- Filtros dedicados da tela de Clientes -->
+    <!-- Filtros dedicados da tela — independentes do filtro global do topo -->
     <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;margin-bottom:16px;box-shadow:var(--shadow)">
       <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end">
+
+        <div>
+          <div style="font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Buscar</div>
+          <div class="search-wrap"><input type="text" id="search-clientes" placeholder="Nome, cidade, CNPJ/CPF..." oninput="filterClientesTable()" style="width:190px"></div>
+        </div>
+
         <div>
           <div style="font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Status</div>
-          <select id="f-clientes-status" onchange="renderClientes()">
+          <select id="f-clientes-status" onchange="filterClientesTable()">
             <option value="">Ativos e Inativos</option>
             <option value="ativo">Somente Ativos</option>
             <option value="inativo">Somente Inativos</option>
           </select>
         </div>
-        <div>
-          <div style="font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Última compra — de</div>
-          <select id="f-clientes-de" onchange="renderClientes()">
-            <option value="">Início</option>
-          </select>
-        </div>
-        <div>
-          <div style="font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">até</div>
-          <select id="f-clientes-ate" onchange="renderClientes()">
-            <option value="">Fim</option>
-          </select>
-        </div>
-        <div style="margin-left:auto">
-          <button class="btn" onclick="limparFiltrosClientes()">✕ Limpar filtros</button>
-        </div>
-      </div>
-    </div>
-    <div class="charts-grid">
-      <div class="chart-card">
-        <div class="chart-title">Top 10 clientes — faturamento</div>
-        <div class="rank-list" id="rank-clientes-fat"></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-title">Clientes por tipo (PF vs PJ)</div>
-        <div class="chart-wrap donut"><canvas id="chart-pf-pj"></canvas></div>
-      </div>
-    </div>
-    <div class="table-card">
-      <div class="table-header">
-        <span class="table-title">Carteira de clientes ativos</span>
-        <div class="table-meta">
-          <div class="search-wrap"><input type="text" id="search-clientes" placeholder="Buscar cliente..." oninput="filterClientesTable()"></div>
-          <span class="table-count" id="clientes-count"></span>
-        </div>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Cliente</th><th>Tipo</th><th>Cidade/UF</th><th>Canal</th><th>Última Compra</th><th>Faturamento</th><th>NFs</th></tr></thead>
-          <tbody id="tbody-clientes"></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
 
-  <!-- ── PAGE: INATIVOS ── -->
-  <div class="page hidden" id="page-inativos">
-    <div class="kpi-grid" id="kpi-inativos"></div>
-
-    <!-- Filtros dedicados -->
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 18px;margin-bottom:16px;box-shadow:var(--shadow)">
-      <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end">
-
-        <!-- Busca -->
-        <div>
-          <div style="font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Buscar</div>
-          <div class="search-wrap"><input type="text" id="search-inativos" placeholder="Nome, cidade..." oninput="filterInativosTable()" style="width:180px"></div>
-        </div>
-
-        <!-- Tipo pessoa -->
         <div>
           <div style="font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Tipo</div>
-          <select id="f-inativos-tipo" onchange="filterInativosTable()">
+          <select id="f-clientes-tipo" onchange="filterClientesTable()">
             <option value="">PF e PJ</option>
             <option value="PJ">Pessoa Jurídica</option>
             <option value="PF">Pessoa Física</option>
           </select>
         </div>
 
-        <!-- Segmento/Canal multi-select -->
         <div>
           <div style="font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Segmento</div>
-          <div class="ms-wrap" id="ms-inativos-canal-wrap">
-            <button class="ms-btn" id="ms-inativos-canal-btn" type="button" onclick="toggleMsDropdown('inativos-canal')">Todos</button>
-            <div class="ms-dropdown" id="ms-inativos-canal-dd">
-              <label class="ms-option"><input type="checkbox" value="E-COMMERCE" onchange="onMsChange('inativos-canal')"> E-Commerce</label>
-              <label class="ms-option"><input type="checkbox" value="SEGURADORA" onchange="onMsChange('inativos-canal')"> Seguradora</label>
-              <label class="ms-option"><input type="checkbox" value="OUTROS" onchange="onMsChange('inativos-canal')"> Outros</label>
+          <div class="ms-wrap" id="ms-clientes-canal-wrap">
+            <button class="ms-btn" id="ms-clientes-canal-btn" type="button" onclick="toggleMsDropdown('clientes-canal')">Todos</button>
+            <div class="ms-dropdown" id="ms-clientes-canal-dd">
+              <label class="ms-option"><input type="checkbox" value="E-COMMERCE" onchange="onMsChange('clientes-canal')"> E-Commerce</label>
+              <label class="ms-option"><input type="checkbox" value="SEGURADORA" onchange="onMsChange('clientes-canal')"> Seguradora</label>
+              <label class="ms-option"><input type="checkbox" value="OUTROS" onchange="onMsChange('clientes-canal')"> Outros</label>
             </div>
           </div>
         </div>
 
-        <!-- Último vendedor -->
         <div>
           <div style="font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Último vendedor</div>
-          <select id="f-inativos-vend" onchange="filterInativosTable()">
+          <select id="f-clientes-vend" onchange="filterClientesTable()">
             <option value="">Todos</option>
           </select>
         </div>
 
-        <!-- Período de inatividade (dias) -->
         <div>
           <div style="font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Inativo há</div>
-          <select id="f-inativos-dias" onchange="filterInativosTable()">
+          <select id="f-clientes-dias" onchange="filterClientesTable()">
             <option value="">Qualquer período</option>
             <option value="60">60 a 90 dias</option>
             <option value="90">90 a 180 dias</option>
@@ -795,33 +800,42 @@ tbody tr:hover td { background: var(--accent-l); }
           </select>
         </div>
 
-        <!-- Período de última compra — de/até mês/ano -->
         <div>
           <div style="font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">Última compra — de</div>
-          <select id="f-inativos-de" onchange="filterInativosTable()">
+          <select id="f-clientes-de" onchange="filterClientesTable()">
             <option value="">Início</option>
           </select>
         </div>
         <div>
           <div style="font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">até</div>
-          <select id="f-inativos-ate" onchange="filterInativosTable()">
+          <select id="f-clientes-ate" onchange="filterClientesTable()">
             <option value="">Fim</option>
           </select>
         </div>
 
-        <!-- Botões -->
         <div style="display:flex;gap:8px;align-items:flex-end;margin-left:auto">
-          <button class="btn" onclick="limparFiltrosInativos()">✕ Limpar</button>
-          <button class="btn-export" onclick="exportCSV('inativos')">⬇ Exportar CSV</button>
+          <button class="btn" onclick="limparFiltrosClientes()">✕ Limpar</button>
+          <button class="btn-export" onclick="exportCSV('clientes')">⬇ Exportar CSV</button>
         </div>
 
       </div>
     </div>
 
+    <div class="charts-grid">
+      <div class="chart-card">
+        <div class="chart-title">Top 10 clientes — faturamento (conforme filtros)</div>
+        <div class="rank-list" id="rank-clientes-fat"></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Clientes por tipo (PF vs PJ)</div>
+        <div class="chart-wrap donut"><canvas id="chart-pf-pj"></canvas></div>
+      </div>
+    </div>
+
     <div class="table-card">
       <div class="table-header">
-        <span class="table-title">Clientes inativos</span>
-        <span class="table-count" id="inativos-count"></span>
+        <span class="table-title" id="clientes-table-title">Carteira de clientes</span>
+        <span class="table-count" id="clientes-count"></span>
       </div>
       <div class="table-wrap">
         <table>
@@ -833,15 +847,14 @@ tbody tr:hover td { background: var(--accent-l); }
             <th>Cidade/UF</th>
             <th>Tel. Celular</th>
             <th>Tel. Comercial</th>
-            <th>Tel. Residencial</th>
             <th>Segmento</th>
             <th>Último Vendedor</th>
             <th>Última Compra</th>
-            <th>Dias Inativo</th>
-            <th>Total Histórico</th>
+            <th>Status</th>
+            <th>Faturamento</th>
             <th>NFs</th>
           </tr></thead>
-          <tbody id="tbody-inativos"></tbody>
+          <tbody id="tbody-clientes"></tbody>
         </table>
       </div>
     </div>
@@ -1208,8 +1221,6 @@ let RAW = {};       // dados brutos parseados
 let JOINED = [];    // linhas VENDA MARGEM enriquecidas (join com VENDA, CLIENTES, VENDEDORES)
 let FILTERED = [];  // após filtros
 let charts = {};
-let inativosAll = [];
-let clientesAtivosAll = [];
 let devolucoesAll = [];
 
 // ═══════════════════════════════════════════════════════
@@ -1409,8 +1420,13 @@ const ABA_MAP = {
 // Sessão do usuário logado
 let SESSION = { regiao: null, usuario: null, lojas: null }; // lojas: null = acesso a todas as lojas da região
 // Última data de venda e contagem de linhas por região (tela inicial rápida)
-let ULTIMA_ATUALIZACAO = { go: null, mg: null };
-let CONTAGEM_REGIAO = { go: 0, mg: 0 };
+const REGIOES = {
+  go:      { key:'go',      label:'GO',      emoji:'🟦', nome:'GO' },
+  mg:      { key:'mg',      label:'MG',      emoji:'🟩', nome:'MG' },
+  renault: { key:'renault', label:'RENAULT', emoji:'🟨', nome:'RENAULT' },
+};
+let ULTIMA_ATUALIZACAO = { go: null, mg: null, renault: null };
+let CONTAGEM_REGIAO = { go: 0, mg: 0, renault: 0 };
 
 // Converte {headers, rows} (formato devolvido pelo Apps Script) em array de objetos
 function arrayToObjects(headers, rows) {
@@ -1454,13 +1470,16 @@ async function loadFromCloud() {
     const json = await resp.json();
     if (!json.ok) throw new Error(json.erro || 'Erro ao buscar dados da planilha.');
 
-    ULTIMA_ATUALIZACAO.go = json.ultima.go ? new Date(json.ultima.go) : null;
-    ULTIMA_ATUALIZACAO.mg = json.ultima.mg ? new Date(json.ultima.mg) : null;
-    CONTAGEM_REGIAO.go = json.contagem.go || 0;
-    CONTAGEM_REGIAO.mg = json.contagem.mg || 0;
+    ULTIMA_ATUALIZACAO.go      = json.ultima.go      ? new Date(json.ultima.go)      : null;
+    ULTIMA_ATUALIZACAO.mg      = json.ultima.mg      ? new Date(json.ultima.mg)      : null;
+    ULTIMA_ATUALIZACAO.renault = json.ultima.renault ? new Date(json.ultima.renault) : null;
+    CONTAGEM_REGIAO.go      = json.contagem.go      || 0;
+    CONTAGEM_REGIAO.mg      = json.contagem.mg      || 0;
+    CONTAGEM_REGIAO.renault = json.contagem.renault || 0;
 
     console.log('[NUVEM] Meta carregada — GO:', CONTAGEM_REGIAO.go, 'linhas (até', fmtDataCurta(ULTIMA_ATUALIZACAO.go), ')',
-      '| MG:', CONTAGEM_REGIAO.mg, 'linhas (até', fmtDataCurta(ULTIMA_ATUALIZACAO.mg), ')');
+      '| MG:', CONTAGEM_REGIAO.mg, 'linhas (até', fmtDataCurta(ULTIMA_ATUALIZACAO.mg), ')',
+      '| Renault:', CONTAGEM_REGIAO.renault, 'linhas (até', fmtDataCurta(ULTIMA_ATUALIZACAO.renault), ')');
 
     hideLoading();
     document.getElementById('config-panel').style.display = 'none';
@@ -1482,13 +1501,25 @@ function atualizarDatasRegiao() {
   const elMg = document.getElementById('regiao-data-mg');
   if (elGo) elGo.textContent = 'Dados até ' + fmtDataCurta(ULTIMA_ATUALIZACAO.go);
   if (elMg) elMg.textContent = 'Dados até ' + fmtDataCurta(ULTIMA_ATUALIZACAO.mg);
+
+  // Renault só aparece quando já existir dado na planilha (abas ainda não criadas = 0 linhas)
+  const cardRenault = document.getElementById('regiao-card-renault');
+  if (cardRenault) {
+    if (CONTAGEM_REGIAO.renault > 0) {
+      cardRenault.classList.remove('hidden');
+      const elR = document.getElementById('regiao-data-renault');
+      if (elR) elR.textContent = 'Dados até ' + fmtDataCurta(ULTIMA_ATUALIZACAO.renault);
+    } else {
+      cardRenault.classList.add('hidden');
+    }
+  }
 }
 
 // ═══════════════════════════════════════════════════════
 // REGIÃO — TELA 1
 // ═══════════════════════════════════════════════════════
 function selecionarRegiao(regiao) {
-  const temDados = regiao === 'go' ? CONTAGEM_REGIAO.go > 0 : CONTAGEM_REGIAO.mg > 0;
+  const temDados = (CONTAGEM_REGIAO[regiao] || 0) > 0;
   if (!temDados) {
     const el = document.getElementById('regiao-error');
     el.textContent = 'Não há dados de venda para a região ' + regiao.toUpperCase() + ' nesta base.';
@@ -1499,7 +1530,8 @@ function selecionarRegiao(regiao) {
   document.getElementById('regiao-panel').classList.add('hidden');
   document.getElementById('login-panel').classList.remove('hidden');
   const pill = document.getElementById('login-regiao-pill');
-  pill.textContent = (regiao === 'go' ? '🟦 GO' : '🟩 MG');
+  const r = REGIOES[regiao] || REGIOES.go;
+  pill.textContent = r.emoji + ' ' + r.label;
   document.getElementById('login-error').classList.add('hidden');
   document.getElementById('login-usuario').value = '';
   document.getElementById('login-senha').value = '';
@@ -1509,6 +1541,82 @@ function selecionarRegiao(regiao) {
 function voltarParaRegiao() {
   document.getElementById('login-panel').classList.add('hidden');
   document.getElementById('regiao-panel').classList.remove('hidden');
+}
+
+// ═══════════════════════════════════════════════════════
+// TROCAR SENHA
+// ═══════════════════════════════════════════════════════
+function abrirTrocarSenha() {
+  document.getElementById('login-panel').classList.add('hidden');
+  document.getElementById('senha-panel').classList.remove('hidden');
+  document.getElementById('senha-regiao-pill').textContent = document.getElementById('login-regiao-pill').textContent;
+  document.getElementById('senha-usuario').value = document.getElementById('login-usuario').value;
+  document.getElementById('senha-atual').value = '';
+  document.getElementById('senha-nova').value = '';
+  document.getElementById('senha-nova-confirma').value = '';
+  document.getElementById('senha-error').classList.add('hidden');
+  document.getElementById('senha-sucesso').classList.add('hidden');
+}
+
+function fecharTrocarSenha() {
+  document.getElementById('senha-panel').classList.add('hidden');
+  document.getElementById('login-panel').classList.remove('hidden');
+}
+
+async function enviarTrocarSenha() {
+  const usuario  = document.getElementById('senha-usuario').value.trim();
+  const atual    = document.getElementById('senha-atual').value.trim();
+  const nova     = document.getElementById('senha-nova').value.trim();
+  const confirma = document.getElementById('senha-nova-confirma').value.trim();
+  const errEl    = document.getElementById('senha-error');
+  const okEl     = document.getElementById('senha-sucesso');
+  errEl.classList.add('hidden');
+  okEl.classList.add('hidden');
+
+  if (!usuario || !atual || !nova || !confirma) {
+    errEl.textContent = 'Preencha todos os campos.';
+    errEl.classList.remove('hidden');
+    return;
+  }
+  if (nova.length < 4) {
+    errEl.textContent = 'A nova senha deve ter pelo menos 4 caracteres.';
+    errEl.classList.remove('hidden');
+    return;
+  }
+  if (nova !== confirma) {
+    errEl.textContent = 'A confirmação não bate com a nova senha.';
+    errEl.classList.remove('hidden');
+    return;
+  }
+  if (nova === atual) {
+    errEl.textContent = 'A nova senha deve ser diferente da senha atual.';
+    errEl.classList.remove('hidden');
+    return;
+  }
+
+  const btn = document.getElementById('btn-trocar-senha');
+  btn.disabled = true; btn.textContent = 'Alterando...';
+
+  try {
+    const resp = await fetch(GOOGLE_SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify({ action: 'trocarSenha', usuario, senhaAtual: atual, novaSenha: nova, regiao: SESSION.regiao.toUpperCase() }),
+    });
+    const json = await resp.json();
+    btn.disabled = false; btn.textContent = 'Trocar senha';
+
+    if (!json.ok) {
+      errEl.textContent = json.erro || 'Não foi possível trocar a senha.';
+      errEl.classList.remove('hidden');
+      return;
+    }
+    okEl.classList.remove('hidden');
+    document.getElementById('login-usuario').value = usuario;
+  } catch (err) {
+    btn.disabled = false; btn.textContent = 'Trocar senha';
+    errEl.textContent = 'Erro ao conectar com a planilha: ' + err.message;
+    errEl.classList.remove('hidden');
+  }
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1777,7 +1885,7 @@ function entrarNoSistema() {
       console.log('[DIAG] Diferença:', (lucViaGetColRaw - lucViaRBracket).toFixed(0));
     }
 
-  FILTERED = [...JOINED];
+  CURRENT_PAGE = 'overview';
   populateFilters();
   applyFilters();
 
@@ -1789,11 +1897,11 @@ function entrarNoSistema() {
   document.getElementById('btn-atualizar').style.display   = '';
   document.getElementById('btn-trocar-usuario').style.display = '';
   const badge = document.getElementById('session-badge');
-  const nomeRegiao = SESSION.regiao === 'go' ? 'GO' : 'MG';
+  const nomeRegiao = (REGIOES[SESSION.regiao] || REGIOES.go).label;
   const escopoTxt = SESSION.lojas ? SESSION.lojas.join(', ').toUpperCase() : 'Todas as lojas';
   badge.innerHTML = `<span class="badge-regiao">${nomeRegiao}</span> ${SESSION.usuario} · ${escopoTxt}`;
   badge.style.display = '';
-  const ultimaData = SESSION.regiao === 'go' ? ULTIMA_ATUALIZACAO.go : ULTIMA_ATUALIZACAO.mg;
+  const ultimaData = ULTIMA_ATUALIZACAO[SESSION.regiao];
   document.getElementById('last-update').textContent = 'Última venda registrada: ' + fmtDataCurta(ultimaData);
   hideLoading();
 }
@@ -2008,6 +2116,13 @@ function setMsLabel(id, values) {
   btn.title = values.length === 0 ? 'Todos os canais' : values.join(', ');
 }
 
+function setMsValues(id, values) {
+  const dd = document.getElementById('ms-'+id+'-dd');
+  if (!dd) return;
+  dd.querySelectorAll('input[type=checkbox]').forEach(c => c.checked = values.includes(c.value));
+  setMsLabel(id, values);
+}
+
 function clearMsValues(id) {
   const dd = document.getElementById('ms-'+id+'-dd');
   if (!dd) return;
@@ -2019,13 +2134,60 @@ function onMsChange(id) {
   const vals = getMsValues(id);
   setMsLabel(id, vals);
   if (id === 'canal') applyFilters();
-  if (id === 'inativos-canal') filterInativosTable();
+  if (id === 'clientes-canal') filterClientesTable();
   if (id === 'camp-canal') filtrarTabelaCamp();
 }
 
 // ═══════════════════════════════════════════════════════
 // FILTROS
 // ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════
+// FILTROS INDEPENDENTES POR TELA
+// Cada aba (Visão Geral, Mês Atual, Vendedores, Devoluções, Insights)
+// guarda sua própria seleção de ano/mês/UF/canal/pessoa. Trocar de aba
+// restaura o filtro daquela aba; mudar um filtro nunca afeta outra aba.
+// (Acompanhamento de Clientes e Campanhas têm filtros 100% próprios,
+// não usam esta barra.)
+// ═══════════════════════════════════════════════════════
+let CURRENT_PAGE = 'overview';
+const PAGINAS_COM_FILTRO_TOPO = ['overview','mesatual','vendedores','devolucoes','insights'];
+let FILTROS_POR_PAGINA = {};
+
+function filtroPadrao() { return { ano:'', mes:'', uf:'', canais:[], pessoa:'' }; }
+
+function salvarFiltroAtual() {
+  if (!PAGINAS_COM_FILTRO_TOPO.includes(CURRENT_PAGE)) return;
+  FILTROS_POR_PAGINA[CURRENT_PAGE] = {
+    ano:    document.getElementById('f-ano').value,
+    mes:    document.getElementById('f-mes').value,
+    uf:     document.getElementById('f-uf').value,
+    canais: getMsValues('canal'),
+    pessoa: document.getElementById('f-pessoa').value,
+  };
+}
+
+function restaurarFiltro(pageId) {
+  if (!PAGINAS_COM_FILTRO_TOPO.includes(pageId)) return;
+  const f = FILTROS_POR_PAGINA[pageId] || filtroPadrao();
+  document.getElementById('f-ano').value    = f.ano;
+  document.getElementById('f-mes').value    = f.mes;
+  document.getElementById('f-uf').value     = f.uf;
+  document.getElementById('f-pessoa').value = f.pessoa;
+  setMsValues('canal', f.canais);
+}
+
+function recomputeFiltered(pageId) {
+  const f = FILTROS_POR_PAGINA[pageId] || filtroPadrao();
+  FILTERED = JOINED.filter(r => {
+    if (f.ano    && r.dtVenda && r.dtVenda.getFullYear() !== parseInt(f.ano)) return false;
+    if (f.mes    && r.ym          !== f.mes)    return false;
+    if (f.uf     && r.uf          !== f.uf)     return false;
+    if (f.canais.length > 0 && !f.canais.includes(r.canalClassif)) return false;
+    if (f.pessoa && r.tipo        !== f.pessoa) return false;
+    return true;
+  });
+}
+
 function populateFilters() {
   // popular anos
   const anos = [...new Set(JOINED.map(r=>r.dtVenda?r.dtVenda.getFullYear():null).filter(Boolean))].sort().reverse();
@@ -2039,36 +2201,32 @@ function populateFilters() {
   const ufs = [...new Set(JOINED.map(r=>r.uf).filter(Boolean))].sort();
   const selUF = document.getElementById('f-uf');
   ufs.forEach(u => { const o=document.createElement('option'); o.value=u; o.textContent=u; selUF.appendChild(o); });
+
+  FILTROS_POR_PAGINA = {};
+  PAGINAS_COM_FILTRO_TOPO.forEach(p => FILTROS_POR_PAGINA[p] = filtroPadrao());
 }
+
+// Chamado pelos controles da barra de filtro do topo — afeta só a aba atual
 function applyFilters() {
-  const ano   = document.getElementById('f-ano').value;
-  const mes   = document.getElementById('f-mes').value;
-  const uf    = document.getElementById('f-uf').value;
-  const canais = getMsValues('canal'); // array, vazio = todos
-  const pessoa= document.getElementById('f-pessoa').value;
-
-  FILTERED = JOINED.filter(r => {
-    if (ano    && r.dtVenda && r.dtVenda.getFullYear() !== parseInt(ano)) return false;
-    if (mes    && r.ym          !== mes)    return false;
-    if (uf     && r.uf          !== uf)     return false;
-    if (canais.length > 0 && !canais.includes(r.canalClassif)) return false;
-    if (pessoa && r.tipo        !== pessoa) return false;
-    return true;
-  });
-  renderAll();
+  salvarFiltroAtual();
+  recomputeFiltered(CURRENT_PAGE);
+  renderPage(CURRENT_PAGE);
 }
 
 // ═══════════════════════════════════════════════════════
-// RENDER ALL
+// RENDER — despacha para a página atualmente ativa
 // ═══════════════════════════════════════════════════════
-function renderAll() {
-  renderOverview();
-  if (document.getElementById('page-mesatual').classList.contains('active')) renderMesAtual();
-  renderVendedores();
-  renderClientes();
-  renderInativos();
-  renderDevolucoes();
-  renderInsights();
+// ═══════════════════════════════════════════════════════
+// RENDER — despacha para a página atualmente ativa
+// ═══════════════════════════════════════════════════════
+function renderPage(id) {
+  if (id === 'overview')    renderOverview();
+  if (id === 'mesatual')    renderMesAtual();
+  if (id === 'vendedores')  renderVendedores();
+  if (id === 'clientes')    renderClientes();
+  if (id === 'devolucoes')  renderDevolucoes();
+  if (id === 'insights')    renderInsights();
+  if (id === 'campanhas')   popularPeriodoCamp();
 }
 
 // ─── Paleta Chart.js ───────────────────────────────────
@@ -2287,53 +2445,68 @@ function renderVendedores() {
 }
 
 // ═══════════════════════════════════════════════════════
-// PAGE: CLIENTES
+// PAGE: ACOMPANHAMENTO DE CLIENTES (Clientes + Inativos, unificado)
+// Usa JOINED (histórico completo), não FILTERED — os filtros desta
+// tela são próprios e independentes do filtro global do topo, senão
+// o cálculo de "dias inativo" ficaria errado quando o filtro global
+// tivesse um período selecionado.
 // ═══════════════════════════════════════════════════════
+let clientesTodosAll = []; // todos os clientes (ativos+inativos), calculado uma vez por render
+
 function limparFiltrosClientes() {
-  ['f-clientes-status','f-clientes-de','f-clientes-ate'].forEach(id => {
+  ['search-clientes','f-clientes-status','f-clientes-tipo','f-clientes-vend',
+   'f-clientes-dias','f-clientes-de','f-clientes-ate'].forEach(id => {
     const el = document.getElementById(id);
-    if (el) el.selectedIndex = 0;
+    if (el) { el.tagName === 'INPUT' ? el.value = '' : el.selectedIndex = 0; }
   });
-  renderClientes();
+  clearMsValues('clientes-canal');
+  filterClientesTable();
 }
 
 function renderClientes() {
-  const vendas=FILTERED.filter(r=>!r.stDev);
-  // Agrupar por CNPJ raiz para ranking (junta filiais do mesmo grupo)
-  const byClienteRaiz={};
-  vendas.forEach(r=>{
-    const raiz = cnpjRaiz(r.docCliente) || r.nomeCliente || 'N/D';
-    const nm = r.nomeCliente || (r.tipo==='PF' ? 'Clientes CPF' : 'N/D');
-    if(!byClienteRaiz[raiz]) byClienteRaiz[raiz]={fat:0,nfs:new Set(),ultimaDt:null,tipo:r.tipo,cidade:r.cidade,uf:r.uf,canal:r.canalClassif,vendedor:r.nomeVendedor,doc:r.docCliente,nm,filiais:new Set()};
-    byClienteRaiz[raiz].fat+=r.valVenda; byClienteRaiz[raiz].nfs.add(r.nf);
-    byClienteRaiz[raiz].filiais.add(r.docCliente);
-    if(!byClienteRaiz[raiz].ultimaDt||r.dtVenda>byClienteRaiz[raiz].ultimaDt){byClienteRaiz[raiz].ultimaDt=r.dtVenda;byClienteRaiz[raiz].vendedor=r.nomeVendedor;byClienteRaiz[raiz].nm=nm;}
-  });
-  // Tabela — por CNPJ individual (cada filial separada)
-  const byCliente={};
-  vendas.forEach(r=>{
+  const vendas = JOINED.filter(r => !r.stDev);
+  const byCliente = {};
+
+  vendas.forEach(r => {
     const key = r.docCliente || norm(r.nomeCliente) || 'nd';
-    const nm = r.nomeCliente || (r.tipo==='PF' ? 'Clientes CPF' : 'N/D');
-    if(!byCliente[key]) byCliente[key]={nm,fat:0,nfs:new Set(),ultimaDt:null,tipo:r.tipo,cidade:r.cidade,uf:r.uf,canal:r.canalClassif,vendedor:r.nomeVendedor,doc:r.docCliente};
-    byCliente[key].fat+=r.valVenda; byCliente[key].nfs.add(r.nf);
-    if(!byCliente[key].ultimaDt||r.dtVenda>byCliente[key].ultimaDt){byCliente[key].ultimaDt=r.dtVenda;byCliente[key].vendedor=r.nomeVendedor;byCliente[key].nm=nm;}
+    const nm  = r.nomeCliente || (r.tipo==='PF' ? 'Clientes CPF' : 'N/D');
+    if (!byCliente[key]) byCliente[key] = {
+      nm, fat: 0, nfs: new Set(),
+      ultimaDt: null, ultimaVend: '', doc: r.docCliente,
+      tipo: r.tipo, canal: r.canalClassif, cidade: r.cidade, uf: r.uf,
+      telCelular:     r.telCelular     || '',
+      telComercial:   r.telComercial   || '',
+      telResidencial: r.telResidencial || '',
+    };
+    byCliente[key].fat += r.valVenda;
+    byCliente[key].nfs.add(r.nf);
+    if (!byCliente[key].ultimaDt || r.dtVenda > byCliente[key].ultimaDt) {
+      byCliente[key].ultimaDt   = r.dtVenda;
+      byCliente[key].ultimaVend = (r.nomeVendedor || '').split(' ').slice(0,2).join(' ');
+      byCliente[key].nm         = nm;
+      byCliente[key].canal      = r.canalClassif;
+    }
   });
 
-  const arrClientes=Object.entries(byCliente).map(([,v])=>({...v,nfs:v.nfs.size,dias:diasAtras(v.ultimaDt)}));
-  const ativos=arrClientes.filter(r=>r.dias<=INATIVO_DIAS);
-  const inativos=arrClientes.filter(r=>r.dias>INATIVO_DIAS);
-  clientesAtivosAll=[...arrClientes].sort((a,b)=>b.fat-a.fat);
+  clientesTodosAll = Object.values(byCliente)
+    .map(v => ({ ...v, nfs: v.nfs.size, dias: diasAtras(v.ultimaDt) }));
+
+  window._totalClientes = clientesTodosAll.length;
+  window._ativosAll     = clientesTodosAll.filter(r => r.dias <= INATIVO_DIAS);
+  window._inativosAll   = clientesTodosAll.filter(r => r.dias > INATIVO_DIAS);
+
+  // Popular filtro de vendedores
+  const selVend = document.getElementById('f-clientes-vend');
+  if (selVend && selVend.options.length <= 1) {
+    const vendedores = [...new Set(clientesTodosAll.map(r=>r.ultimaVend).filter(Boolean))].sort();
+    vendedores.forEach(v => { const o=document.createElement('option'); o.value=v; o.textContent=v; selVend.appendChild(o); });
+  }
 
   // Popular filtros de período (meses disponíveis da última compra)
-  const mesesSet = [...new Set(arrClientes
-    .filter(r=>r.ultimaDt)
-    .map(r=>ym(r.ultimaDt))
-  )].sort();
   const selDe  = document.getElementById('f-clientes-de');
   const selAte = document.getElementById('f-clientes-ate');
   if (selDe && selDe.options.length <= 1) {
-    selDe.innerHTML  = '<option value="">Início</option>';
-    selAte.innerHTML = '<option value="">Fim</option>';
+    const mesesSet = [...new Set(clientesTodosAll.filter(r=>r.ultimaDt).map(r=>ym(r.ultimaDt)))].sort();
     mesesSet.forEach(m => {
       const label = mesLabel(m) + '/' + m.split('-')[0].slice(2);
       selDe.innerHTML  += `<option value="${m}">${label}</option>`;
@@ -2341,258 +2514,103 @@ function renderClientes() {
     });
   }
 
-  // Aplicar filtros de status e período
-  const fStatus = (document.getElementById('f-clientes-status')?.value) || '';
-  const fDe     = (document.getElementById('f-clientes-de')?.value)     || '';
-  const fAte    = (document.getElementById('f-clientes-ate')?.value)    || '';
+  filterClientesTable();
+}
 
-  let filtrados = [...arrClientes];
-  if (fStatus === 'ativo')   filtrados = filtrados.filter(r => r.dias <= INATIVO_DIAS);
-  if (fStatus === 'inativo') filtrados = filtrados.filter(r => r.dias > INATIVO_DIAS);
-  if (fDe)  filtrados = filtrados.filter(r => r.ultimaDt && ym(r.ultimaDt) >= fDe);
-  if (fAte) filtrados = filtrados.filter(r => r.ultimaDt && ym(r.ultimaDt) <= fAte);
+function getClientesFiltrados() {
+  const q      = (document.getElementById('search-clientes')?.value || '').toLowerCase();
+  const status = document.getElementById('f-clientes-status')?.value || '';
+  const tipo   = document.getElementById('f-clientes-tipo')?.value   || '';
+  const canais = getMsValues('clientes-canal');
+  const vend   = document.getElementById('f-clientes-vend')?.value   || '';
+  const dias   = document.getElementById('f-clientes-dias')?.value   || '';
+  const de     = document.getElementById('f-clientes-de')?.value     || '';
+  const ate    = document.getElementById('f-clientes-ate')?.value    || '';
 
-  // KPIs baseados nos dados filtrados
-  const ativosFiltr   = filtrados.filter(r=>r.dias<=INATIVO_DIAS);
-  const inativosFiltr = filtrados.filter(r=>r.dias>INATIVO_DIAS);
-  const totalFiltr    = filtrados.length;
-  const pctInat       = totalFiltr ? (inativosFiltr.length/totalFiltr*100).toFixed(0) : 0;
-  const temFiltro     = fStatus || fDe || fAte;
-  const subLbl        = temFiltro ? '<span style="color:var(--amber);font-size:10px;font-weight:600"> ● filtrado</span>' : '';
+  let f = clientesTodosAll;
+  if (q)              f = f.filter(r => r.nm.toLowerCase().includes(q) || (r.cidade||'').toLowerCase().includes(q) || (r.doc||'').includes(q));
+  if (status==='ativo')   f = f.filter(r => r.dias <= INATIVO_DIAS);
+  if (status==='inativo') f = f.filter(r => r.dias >  INATIVO_DIAS);
+  if (tipo)            f = f.filter(r => r.tipo === tipo);
+  if (canais.length)   f = f.filter(r => canais.includes(r.canal));
+  if (vend)            f = f.filter(r => r.ultimaVend === vend);
+  if (dias === '60')   f = f.filter(r => r.dias >= 60  && r.dias < 90);
+  if (dias === '90')   f = f.filter(r => r.dias >= 90  && r.dias < 180);
+  if (dias === '180')  f = f.filter(r => r.dias >= 180);
+  if (de)  f = f.filter(r => r.ultimaDt && ym(r.ultimaDt) >= de);
+  if (ate) f = f.filter(r => r.ultimaDt && ym(r.ultimaDt) <= ate);
+  return f;
+}
 
-  document.getElementById('kpi-carteira').innerHTML=`
+function filterClientesTable() {
+  const f = getClientesFiltrados();
+  atualizarKpisClientes(f);
+  renderRankingClientes(f);
+  renderPfPjChart();
+
+  const status = document.getElementById('f-clientes-status')?.value || '';
+  const titulo = status === 'ativo' ? 'Clientes ativos' : status === 'inativo' ? 'Clientes inativos' : 'Carteira de clientes';
+  document.getElementById('clientes-table-title').textContent = titulo;
+
+  const sorted = [...f].sort((a,b) => b.fat - a.fat);
+  document.getElementById('clientes-count').textContent = `${sorted.length} clientes`;
+  renderClientesTable(sorted.slice(0, 150));
+}
+
+function atualizarKpisClientes(f) {
+  const status = document.getElementById('f-clientes-status')?.value || '';
+  const tipo   = document.getElementById('f-clientes-tipo')?.value   || '';
+  const canais = getMsValues('clientes-canal');
+  const vend   = document.getElementById('f-clientes-vend')?.value   || '';
+  const temFiltro = status || tipo || canais.length || vend ||
+    (document.getElementById('search-clientes')?.value||'') ||
+    (document.getElementById('f-clientes-dias')?.value||'') ||
+    (document.getElementById('f-clientes-de')?.value||'') ||
+    (document.getElementById('f-clientes-ate')?.value||'');
+  const subLbl = temFiltro ? '<span style="color:var(--amber);font-size:10px;font-weight:600"> ● filtrado</span>' : '';
+
+  // Ativos/inativos dentro do mesmo escopo não-temporal de tipo/canal/vendedor (pra comparação justa)
+  const escopo = (arr) => {
+    let r = arr;
+    if (tipo)          r = r.filter(x => x.tipo === tipo);
+    if (canais.length) r = r.filter(x => canais.includes(x.canal));
+    if (vend)          r = r.filter(x => x.ultimaVend === vend);
+    return r;
+  };
+  const ativosEscopo   = escopo(window._ativosAll   || []);
+  const inativosEscopo = escopo(window._inativosAll || []);
+
+  const total     = f.length;
+  const inativosF = f.filter(r => r.dias > INATIVO_DIAS);
+  const mediaDias = inativosF.length ? Math.round(inativosF.reduce((s,r)=>s+r.dias,0)/inativosF.length) : 0;
+  const recPotInativos = inativosF.reduce((s,r)=>s+r.fat, 0);
+  const mais180   = f.filter(r => r.dias > 180).length;
+
+  document.getElementById('kpi-carteira').innerHTML = `
     <div class="kpi-card kpi-blue">
-      <div class="kpi-label">Total carteira${subLbl}</div>
-      <div class="kpi-value">${totalFiltr.toLocaleString('pt-BR')}</div>
-      <div class="kpi-sub">clientes com compra no período</div>
+      <div class="kpi-label">Total na tela${subLbl}</div>
+      <div class="kpi-value">${total.toLocaleString('pt-BR')}</div>
+      <div class="kpi-sub">clientes conforme filtros aplicados</div>
     </div>
     <div class="kpi-card kpi-green">
       <div class="kpi-label">Ativos${subLbl}</div>
-      <div class="kpi-value">${ativosFiltr.length.toLocaleString('pt-BR')}</div>
+      <div class="kpi-value">${ativosEscopo.length.toLocaleString('pt-BR')}</div>
       <div class="kpi-sub">compraram nos últimos ${INATIVO_DIAS} dias</div>
     </div>
     <div class="kpi-card kpi-red">
       <div class="kpi-label">Inativos${subLbl}</div>
-      <div class="kpi-value">${inativosFiltr.length.toLocaleString('pt-BR')}</div>
-      <div class="kpi-sub">${pctInat}% da carteira sem compra +60d</div>
-    </div>
-    <div class="kpi-card kpi-amber">
-      <div class="kpi-label">Receita potencial inativos</div>
-      <div class="kpi-value">${fmtK(inativosFiltr.reduce((s,r)=>s+r.fat,0))}</div>
-      <div class="kpi-sub">histórico de compras</div>
-    </div>
-  `;
-
-  // Ranking usa agrupamento por CNPJ raiz (sobre filtrados)
-  const filtradosDoc = new Set(filtrados.map(r=>r.doc).filter(Boolean));
-  const arrClientesRaiz=Object.entries(byClienteRaiz)
-    .filter(([,v])=>{
-      if (!temFiltro) return true;
-      // se tem filtro de status/período, mantém só raízes que têm ao menos uma filial filtrada
-      const filialMatch = [...v.filiais].some(doc => filtradosDoc.has(doc));
-      return filialMatch;
-    })
-    .map(([raiz,v])=>({nm:v.nm,fat:v.fat,nfs:v.nfs.size,filiais:v.filiais.size,doc:v.doc})).sort((a,b)=>b.fat-a.fat);
-
-  const top10=arrClientesRaiz.slice(0,10); const maxF=top10[0]?.fat||1;
-  document.getElementById('rank-clientes-fat').innerHTML=top10.map(({nm,fat,filiais},i)=>`
-    <div class="rank-item">
-      <span class="rank-pos ${i<3?['gold','silver','bronze'][i]:''}">${i+1}</span>
-      <span class="rank-name">${nm}</span>
-      <div class="rank-bar-wrap"><div class="rank-bar" style="width:${(fat/maxF*100).toFixed(0)}%"></div></div>
-      <span class="rank-value">${fmtK(fat)}</span>
-    </div>`).join('');
-
-  // chart PF vs PJ (sobre todos os clientes do período FILTERED)
-  const pf=arrClientes.filter(r=>r.tipo==='PF').length;
-  const pj=arrClientes.filter(r=>r.tipo==='PJ').length;
-  mkChart('chart-pf-pj','doughnut',{
-    labels:['Pessoa Jurídica (PJ)','Pessoa Física (PF)'],
-    datasets:[{data:[pj,pf],backgroundColor:['#2563EB','#059669'],borderWidth:2,borderColor:'#fff'}]
-  },{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#475569',font:{family:'Inter',size:11},boxWidth:12}}}});
-
-  // tabela — usa filtrados
-  const sorted = [...filtrados].sort((a,b)=>b.fat-a.fat);
-  document.getElementById('clientes-count').textContent=`${sorted.length} clientes`;
-  clientesAtivosAll = sorted; // para a busca funcionar
-  renderClientesTable(sorted.slice(0,100));
-}
-
-function renderClientesTable(arr) {
-  document.getElementById('tbody-clientes').innerHTML=arr.map(r=>`
-    <tr>
-      <td><strong>${r.nm}</strong></td>
-      <td><span class="badge ${r.tipo==='PJ'?'b-blue':'b-green'}">${r.tipo}</span></td>
-      <td style="color:var(--text2)">${[r.cidade,r.uf].filter(Boolean).join(' / ')||'-'}</td>
-      <td><span class="badge ${r.canal==='E-COMMERCE'?'b-purple':r.canal==='SEGURADORA'?'b-amber':'b-gray'}">${r.canal||'-'}</span></td>
-      <td style="font-family:var(--mono);color:var(--text2)">${r.ultimaDt?r.ultimaDt.toLocaleDateString('pt-BR'):'-'}</td>
-      <td style="font-family:var(--mono);color:var(--accent)">${fmtK(r.fat)}</td>
-      <td style="font-family:var(--mono)">${r.nfs}</td>
-    </tr>`).join('');
-}
-function filterClientesTable() {
-  const q=document.getElementById('search-clientes').value.toLowerCase();
-  renderClientesTable(clientesAtivosAll.filter(r=>r.nm.toLowerCase().includes(q)).slice(0,100));
-}
-
-// ═══════════════════════════════════════════════════════
-// PAGE: INATIVOS
-// ═══════════════════════════════════════════════════════
-function renderInativos() {
-  const vendas = JOINED.filter(r => !r.stDev);
-  const byCliente = {};
-
-  vendas.forEach(r => {
-    const key = r.docCliente || norm(r.nomeCliente) || 'nd';
-    const nm  = r.nomeCliente || 'N/D';
-    if (!byCliente[key]) byCliente[key] = {
-      nm, fat:0, nfs: new Set(),
-      ultimaDt: null, ultimaVend: '', ultimaVendFull: '',
-      tipo: r.tipo, canal: r.canalClassif,
-      cidade: r.cidade, uf: r.uf, doc: r.docCliente,
-      telCelular:    r.telCelular    || '',
-      telComercial:  r.telComercial  || '',
-      telResidencial:r.telResidencial|| '',
-    };
-    byCliente[key].fat += r.valVenda;
-    byCliente[key].nfs.add(r.nf);
-    if (!byCliente[key].ultimaDt || r.dtVenda > byCliente[key].ultimaDt) {
-      byCliente[key].ultimaDt       = r.dtVenda;
-      byCliente[key].ultimaVend     = (r.nomeVendedor||'').split(' ').slice(0,2).join(' ');
-      byCliente[key].ultimaVendFull = r.nomeVendedor || '';
-      byCliente[key].nm             = nm;
-      byCliente[key].canal          = r.canalClassif;
-    }
-  });
-
-  // Separar ativos e inativos
-  const todosClientes = Object.values(byCliente)
-    .map(v => ({ ...v, nfs: v.nfs.size, dias: diasAtras(v.ultimaDt) }));
-
-  inativosAll = todosClientes
-    .filter(r => r.dias > INATIVO_DIAS)
-    .sort((a, b) => b.dias - a.dias);
-
-  // Guardar lista de ativos para os KPIs reativos
-  window._ativosAll = todosClientes
-    .filter(r => r.dias <= INATIVO_DIAS)
-    .sort((a, b) => b.fat - a.fat);
-
-  window._totalClientes = todosClientes.length;
-  window._totalAtivos   = window._ativosAll.length;
-
-  // Popular filtro de vendedores
-  const selVend = document.getElementById('f-inativos-vend');
-  const vendedores = [...new Set(inativosAll.map(r=>r.ultimaVend).filter(Boolean))].sort();
-  selVend.innerHTML = '<option value="">Todos</option>';
-  vendedores.forEach(v => { const o=document.createElement('option'); o.value=v; o.textContent=v; selVend.appendChild(o); });
-
-  // Popular filtros de período (meses disponíveis da última compra)
-  const mesesSet = [...new Set(inativosAll
-    .filter(r=>r.ultimaDt)
-    .map(r=>ym(r.ultimaDt))
-  )].sort();
-
-  const selDe  = document.getElementById('f-inativos-de');
-  const selAte = document.getElementById('f-inativos-ate');
-  selDe.innerHTML  = '<option value="">Início</option>';
-  selAte.innerHTML = '<option value="">Fim</option>';
-  mesesSet.forEach(m => {
-    const label = mesLabel(m) + '/' + m.split('-')[0].slice(2);
-    selDe.innerHTML  += `<option value="${m}">${label}</option>`;
-    selAte.innerHTML += `<option value="${m}">${label}</option>`;
-  });
-
-  filterInativosTable();
-}
-
-function getInativosFiltrados() {
-  const q      = (document.getElementById('search-inativos')?.value || '').toLowerCase();
-  const tipo   = document.getElementById('f-inativos-tipo')?.value  || '';
-  const canais = getMsValues('inativos-canal'); // array multi-select
-  const vend   = document.getElementById('f-inativos-vend')?.value  || '';
-  const dias   = document.getElementById('f-inativos-dias')?.value  || '';
-  const de     = document.getElementById('f-inativos-de')?.value    || '';
-  const ate    = document.getElementById('f-inativos-ate')?.value   || '';
-
-  let f = inativosAll;
-  if (q)             f = f.filter(r => r.nm.toLowerCase().includes(q) || (r.cidade||'').toLowerCase().includes(q) || (r.doc||'').includes(q));
-  if (tipo)          f = f.filter(r => r.tipo === tipo);
-  if (canais.length) f = f.filter(r => canais.includes(r.canal));
-  if (vend)          f = f.filter(r => r.ultimaVend === vend);
-  if (dias === '60')  f = f.filter(r => r.dias >= 60  && r.dias < 90);
-  if (dias === '90')  f = f.filter(r => r.dias >= 90  && r.dias < 180);
-  if (dias === '180') f = f.filter(r => r.dias >= 180);
-  if (de)    f = f.filter(r => r.ultimaDt && ym(r.ultimaDt) >= de);
-  if (ate)   f = f.filter(r => r.ultimaDt && ym(r.ultimaDt) <= ate);
-  return f;
-}
-
-function filterInativosTable() {
-  const f = getInativosFiltrados();
-  atualizarKpisInativos(f);
-  renderInativosTable(f);
-}
-
-function atualizarKpisInativos(f) {
-  // Totais globais (sem filtro) — calculados uma vez
-  const totalClientesGlobal  = window._totalClientes  || 0;
-  const totalAtivosGlobal    = window._totalAtivos    || 0;
-  const totalInativosGlobal  = inativosAll.length;
-
-  // Métricas do conjunto filtrado
-  const total     = f.length;
-  const mediaDias = total ? Math.round(f.reduce((s,r)=>s+r.dias,0)/total) : 0;
-  const recPot    = f.reduce((s,r)=>s+r.fat, 0);
-  const mais180   = f.filter(r=>r.dias>180).length;
-
-  // Calcular ativos dentro do mesmo escopo de filtro (tipo/canal/vend)
-  // Para "Total Ativos filtrado" usamos ativosAll filtrado pelos mesmos critérios não-temporais
-  const tipo   = document.getElementById('f-inativos-tipo')?.value  || '';
-  const canais = getMsValues('inativos-canal');
-  const vend   = document.getElementById('f-inativos-vend')?.value  || '';
-  let ativos = (window._ativosAll || []);
-  if (tipo)          ativos = ativos.filter(r => r.tipo  === tipo);
-  if (canais.length) ativos = ativos.filter(r => canais.includes(r.canal));
-  if (vend)          ativos = ativos.filter(r => r.ultimaVend === vend);
-
-  const totalAtivos   = ativos.length;
-  const totalInativos = total;
-  const totalClientes = totalAtivos + totalInativos;
-
-  const temFiltro = tipo || canais.length ||  vend ||
-    (document.getElementById('search-inativos')?.value||'') ||
-    (document.getElementById('f-inativos-dias')?.value||'') ||
-    (document.getElementById('f-inativos-de')?.value||'') ||
-    (document.getElementById('f-inativos-ate')?.value||'');
-
-  const subLabel = temFiltro ? '<span style="color:var(--amber);font-size:10px;font-weight:600">● filtrado</span>' : '';
-
-  document.getElementById('kpi-inativos').innerHTML = `
-    <div class="kpi-card kpi-blue">
-      <div class="kpi-label">Total Clientes ${subLabel}</div>
-      <div class="kpi-value">${totalClientes.toLocaleString('pt-BR')}</div>
-      <div class="kpi-sub">ativos + inativos</div>
-    </div>
-    <div class="kpi-card kpi-green">
-      <div class="kpi-label">Total Ativos ${subLabel}</div>
-      <div class="kpi-value">${totalAtivos.toLocaleString('pt-BR')}</div>
-      <div class="kpi-sub">compraram nos últimos ${INATIVO_DIAS} dias</div>
-    </div>
-    <div class="kpi-card kpi-red">
-      <div class="kpi-label">Total Inativos ${subLabel}</div>
-      <div class="kpi-value">${totalInativos.toLocaleString('pt-BR')}</div>
+      <div class="kpi-value">${inativosEscopo.length.toLocaleString('pt-BR')}</div>
       <div class="kpi-sub">sem compra há +${INATIVO_DIAS} dias</div>
     </div>
     <div class="kpi-card kpi-amber">
       <div class="kpi-label">Média dias inativo</div>
       <div class="kpi-value">${mediaDias}</div>
-      <div class="kpi-sub">dias desde última compra</div>
+      <div class="kpi-sub">entre os inativos na tela</div>
     </div>
-    <div class="kpi-card kpi-blue" style="--kpi-accent:var(--teal)">
-      <div class="kpi-label">Receita histórica</div>
-      <div class="kpi-value" style="color:#0891B2">${fmtK(recPot)}</div>
-      <div class="kpi-sub">total comprado pelos inativos filtrados</div>
+    <div class="kpi-card kpi-teal">
+      <div class="kpi-label">Receita histórica inativos</div>
+      <div class="kpi-value">${fmtK(recPotInativos)}</div>
+      <div class="kpi-sub">total já comprado por eles</div>
     </div>
     <div class="kpi-card kpi-purple">
       <div class="kpi-label">Inativos +180 dias</div>
@@ -2601,19 +2619,29 @@ function atualizarKpisInativos(f) {
     </div>`;
 }
 
-function limparFiltrosInativos() {
-  ['search-inativos','f-inativos-tipo','f-inativos-vend',
-   'f-inativos-dias','f-inativos-de','f-inativos-ate'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) { el.tagName === 'INPUT' ? el.value = '' : el.selectedIndex = 0; }
-  });
-  clearMsValues('inativos-canal');
-  filterInativosTable();
+function renderRankingClientes(f) {
+  const top10 = [...f].sort((a,b) => b.fat - a.fat).slice(0, 10);
+  const maxF  = top10[0]?.fat || 1;
+  document.getElementById('rank-clientes-fat').innerHTML = top10.map((r,i) => `
+    <div class="rank-item">
+      <span class="rank-pos ${i<3?['gold','silver','bronze'][i]:''}">${i+1}</span>
+      <span class="rank-name">${r.nm}</span>
+      <div class="rank-bar-wrap"><div class="rank-bar" style="width:${(r.fat/maxF*100).toFixed(0)}%"></div></div>
+      <span class="rank-value">${fmtK(r.fat)}</span>
+    </div>`).join('');
 }
 
-function renderInativosTable(arr) {
-  document.getElementById('inativos-count').textContent = `${arr.length} clientes`;
-  document.getElementById('tbody-inativos').innerHTML = arr.map((r,i) => `
+function renderPfPjChart() {
+  const pf = clientesTodosAll.filter(r => r.tipo === 'PF').length;
+  const pj = clientesTodosAll.filter(r => r.tipo === 'PJ').length;
+  mkChart('chart-pf-pj', 'doughnut', {
+    labels: ['Pessoa Jurídica (PJ)', 'Pessoa Física (PF)'],
+    datasets: [{ data: [pj, pf], backgroundColor: ['#3730A3', '#067A56'], borderWidth: 2, borderColor: '#fff' }]
+  }, { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: '#4B5268', font: { family: 'Inter', size: 11 }, boxWidth: 12 } } } });
+}
+
+function renderClientesTable(arr) {
+  document.getElementById('tbody-clientes').innerHTML = arr.map((r,i) => `
     <tr>
       <td style="color:var(--text3);font-family:var(--mono)">${i+1}</td>
       <td><strong>${r.nm}</strong></td>
@@ -2622,15 +2650,15 @@ function renderInativosTable(arr) {
       <td style="color:var(--text2)">${[r.cidade,r.uf].filter(Boolean).join(' / ')||'-'}</td>
       <td style="font-family:var(--mono);font-size:12px">${r.telCelular||'-'}</td>
       <td style="font-family:var(--mono);font-size:12px">${r.telComercial||'-'}</td>
-      <td style="font-family:var(--mono);font-size:12px">${r.telResidencial||'-'}</td>
       <td><span class="badge b-gray" style="font-size:10px">${r.canal||'-'}</span></td>
       <td style="color:var(--text2)">${r.ultimaVend||'-'}</td>
       <td style="font-family:var(--mono);color:var(--text2)">${r.ultimaDt?r.ultimaDt.toLocaleDateString('pt-BR'):'-'}</td>
-      <td><span class="badge ${r.dias>180?'b-red':r.dias>90?'b-amber':'b-gray'}">${r.dias}d</span></td>
+      <td><span class="badge ${r.dias>180?'b-red':r.dias>INATIVO_DIAS?'b-amber':'b-green'}">${r.dias>INATIVO_DIAS?r.dias+'d inativo':'ativo'}</span></td>
       <td style="font-family:var(--mono);color:var(--accent)">${fmtK(r.fat)}</td>
       <td style="font-family:var(--mono)">${r.nfs}</td>
     </tr>`).join('');
 }
+
 
 // ═══════════════════════════════════════════════════════
 // PAGE: DEVOLUÇÕES
@@ -2759,29 +2787,9 @@ function renderInsights() {
 // ═══════════════════════════════════════════════════════
 function exportCSV(type) {
   let rows=[], filename='';
-  if (type==='inativos') {
-    filename='clientes_inativos.csv';
-    // Exporta exatamente o que está visível com os filtros aplicados
-    const exportList2 = (() => {
-      const q      = (document.getElementById('search-inativos')?.value||'').toLowerCase();
-      const tipo   = document.getElementById('f-inativos-tipo')?.value||'';
-      const canais = getMsValues('inativos-canal');
-      const vend   = document.getElementById('f-inativos-vend')?.value||'';
-      const dias   = document.getElementById('f-inativos-dias')?.value||'';
-      const de     = document.getElementById('f-inativos-de')?.value||'';
-      const ate    = document.getElementById('f-inativos-ate')?.value||'';
-      let f = inativosAll;
-      if (q)             f = f.filter(r=>r.nm.toLowerCase().includes(q)||(r.cidade||'').toLowerCase().includes(q)||(r.doc||'').includes(q));
-      if (tipo)          f = f.filter(r=>r.tipo===tipo);
-      if (canais.length) f = f.filter(r=>canais.includes(r.canal));
-      if (vend)          f = f.filter(r=>r.ultimaVend===vend);
-      if (dias==='60')  f = f.filter(r=>r.dias>=60&&r.dias<90);
-      if (dias==='90')  f = f.filter(r=>r.dias>=90&&r.dias<180);
-      if (dias==='180') f = f.filter(r=>r.dias>=180);
-      if (de)    f = f.filter(r=>r.ultimaDt&&ym(r.ultimaDt)>=de);
-      if (ate)   f = f.filter(r=>r.ultimaDt&&ym(r.ultimaDt)<=ate);
-      return f;
-    })();
+  if (type==='clientes') {
+    filename='acompanhamento_clientes.csv';
+    const exportList2 = getClientesFiltrados();
     rows=[['#','Cliente','Tipo','Segmento','CNPJ/CPF','Cidade','UF','Tel.Celular','Tel.Comercial','Tel.Residencial','Ultimo Vendedor','Ultima Compra','Dias Inativo','Total Historico','NFs']];
     exportList2.forEach((r,i)=>rows.push([i+1,r.nm,r.tipo||'',r.canal||'',r.doc||'',r.cidade||'',r.uf||'',r.telCelular||'',r.telComercial||'',r.telResidencial||'',r.ultimaVend||'',r.ultimaDt?r.ultimaDt.toLocaleDateString('pt-BR'):'',r.dias,r.fat.toFixed(2).replace('.',','),r.nfs]));
   } else if (type==='devolucoes') {
@@ -3559,13 +3567,19 @@ function showPage(id, el) {
   const page = document.getElementById('page-' + id);
   if (page) { page.classList.add('active'); page.style.display='block'; }
   if (el) el.classList.add('active');
-  if (id==='vendedores') renderVendedores();
-  if (id==='clientes')   renderClientes();
-  if (id==='inativos')   renderInativos();
-  if (id==='devolucoes') renderDevolucoes();
-  if (id==='insights')   renderInsights();
-  if (id==='campanhas')  { popularPeriodoCamp(); }
-  if (id==='mesatual')   renderMesAtual();
+
+  CURRENT_PAGE = id;
+
+  // Barra de filtro do topo só aparece nas telas que a usam —
+  // Clientes e Campanhas têm filtros próprios e completos.
+  const filterBar = document.getElementById('filter-bar');
+  if (filterBar) filterBar.style.display = PAGINAS_COM_FILTRO_TOPO.includes(id) ? '' : 'none';
+
+  if (PAGINAS_COM_FILTRO_TOPO.includes(id)) {
+    restaurarFiltro(id);
+    recomputeFiltered(id);
+  }
+  renderPage(id);
 }
 
 // ═══════════════════════════════════════════════════════
